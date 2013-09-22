@@ -16,13 +16,32 @@
 # Copyright (c) 2013 filux under GNU GPL v3.0
 LANG=C
 
-if [ `id -u`'x' = '0x' ]; then echo " This script can't be run as root; the root's password will be required per moment after starting."; exit 9; fi
+if [ `id -u`'x' = '0x' ]; then 
+	echo " This script can't be run as root; the root's password will be required per moment after starting."
+	exit 9
+fi
 pwd0="$(pwd)""/"; pwd1="$pwd0""libraries/"; ilog="$pwd0""install.log"
-fun_err() { if [ "$?" -ne "0" ]; then echo -e "\n >>> an error was detected <<<
- > Are you sure that you placed the script in the right directory? <
- ...and in this directory doesn't have missing write permissions?\n"; sleep 10s; exit 1; fi; }
-echo -e "Installation was started:\n`date`" > "$ilog"; fun_err; sleep 0.3s; cd "$pwd1"; fun_err
-chmod +x install-mg.sh; fun_err; sleep 0.3s; ./install-mg.sh |& tee -a "$ilog"; fun_err; sleep 1s
-echo -e "\nInstallation was finisheded (or interrupted):\n`date`\n" >> "$ilog"; fun_err; exit 0
 
+fun_err() { 
+	if [ "$?" -ne "0" ]; then 
+		echo -e "\n >>> an error was detected <<<";
+		echo -e "\n > Are you sure that you placed the script in the right directory? <"
+		echo -e "\n ...and in this directory doesn't have missing write permissions?\n"
+		sleep 10s
+		exit 1 
+	fi
+ }
 
+echo -e "Installation was started:\n`date`" > "$ilog"; fun_err; 
+sleep 0.3s
+
+cd "$pwd1"; fun_err
+chmod +x install-mg.sh; fun_err
+
+sleep 0.3s
+./install-mg.sh |& tee -a "$ilog"; fun_err
+
+sleep 1s
+echo -e "\nInstallation was finisheded (or interrupted):\n`date`\n" >> "$ilog"; fun_err
+
+exit 0
