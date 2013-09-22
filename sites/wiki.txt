@@ -1,0 +1,101 @@
+Filux:
+> I've written a few scripts for Megaglest svn and linux users.
+
+> Main script performs ( among others ;] ) the function of updating, compiling and running the latest svn revision of the MegaGlest game. Another scripts are designed for a newbies and/or a little more convenient users to carry out the whole (a first) "installation process" on svn game. The last script helps to download fast and fun all the official mods available in game mods' centre.
+
+> Everything is in one package and each user in it can find and get what he/she needs :).
+
+> I think it multiply the number of Megaglest betatesters ;)
+
+
+[>>> Pictorial presentation](https://github.com/filux/MegaGlest--filux-svn-scripts/wiki/Pictorial-presentation)
+
+[>>> Forum megaglest](https://forum.megaglest.org/index.php?topic=8976.0)
+
+_______________________________________________________
+
+
+### Small pictorial presentation of "installation":
+
+
+
+* **download file**
+
+![](http://i.imgur.com/u1dniqx.png)
+
+
+* **and unpack**
+
+![](http://i.imgur.com/IaRxEOD.png)
+
+
+* **browse directory**
+
+![](http://i.imgur.com/XsVmmK1.png)
+
+
+* **read headline of script & Readme.txt**
+
+![](http://i.imgur.com/buzKG0P.png)
+
+
+* **do script executable**
+
+![](http://i.imgur.com/U4VCZYQ.png)
+
+
+* **launch run-installation.sh script and then enter the root's password**
+
+![](http://i.imgur.com/q9BfEmH.png)
+
+
+* **When the script asks: Do you want to install or update some libraries?, you must agree on it.**
+
+![](http://i.imgur.com/362LWq3.png)
+
+
+* **since then everything should run unattended:**
+
+**Info: >downloading svn files<**
+
+![](http://i.imgur.com/GuSkZks.png)
+
+
+* **Info: >compiling<**
+
+![](http://i.imgur.com/LqNtWJS.png)
+
+
+* **. . .**
+
+![](http://i.imgur.com/0x1HCf0.png)
+
+
+* **Info: >"BUILD COMPLETE" if the compiler will not encounter any problems<**
+
+![](http://i.imgur.com/wbmJFwf.png)
+
+
+* **Info: >the installation summary<**
+
+![](http://i.imgur.com/A15xTEP.png)
+
+
+* **after an unattended "installation" is worth to review the log file, especially when compilation failed**
+
+![](http://i.imgur.com/ra0CGXe.png)
+
+
+* **run the script (location is specified in the summary of the installation)**
+
+![](http://i.imgur.com/uzVQv8m.png)
+
+
+* **Info: >these are the informations from the console window<**
+
+![](http://i.imgur.com/ZCun4zk.png)
+
+
+* **enjoy  :)**
+
+![](http://i.imgur.com/sU2Xjsm.png) 

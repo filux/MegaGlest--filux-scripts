@@ -1,0 +1,69 @@
+I've written a few scripts for Megaglest svn and linux users.
+
+Main script performs ( among others ;] ) the function of updating, compiling and running the latest svn revision of the MegaGlest game.
+Another scripts are designed for a newbies and/or a little more convenient users  to carry out the whole (a first) "installation process" on svn game.
+The last script helps to download fast and fun all the official mods available in game mods' centre.
+
+Everything is in one package and each user in it can find and get what he/she needs :).
+
+
+[url=http://s000.tinyupload.com/?file_id=04312465511289648800][B]filux's scripts[/B][/url]
+
+
+I think it multiply the number of Megaglest betatesters ;)
+
+__________________________________________________________________________
+
+
+[b][size=12pt]Small pictorial presentation of "installation":[/size][/b]
+
+download file
+[img]http://i.imgur.com/u1dniqx.png[/img]
+
+[spoiler]
+
+and unpack
+[img]http://i.imgur.com/IaRxEOD.png[/img]
+
+browse directory
+[img]http://i.imgur.com/XsVmmK1.png[/img]
+
+read headline of script & Readme.txt
+[img]http://i.imgur.com/buzKG0P.png[/img]
+
+do script executable
+[img]http://i.imgur.com/U4VCZYQ.png[/img]
+
+launch run-installation.sh script and then enter the root's password
+[img]http://i.imgur.com/q9BfEmH.png[/img]
+
+When the script asks: Do you want to install or update some libraries?, you must agree on it.
+[img]http://i.imgur.com/362LWq3.png[/img]
+
+since then everything should run unattended: 
+Info: >downloading svn files<
+[img]http://i.imgur.com/GuSkZks.png[/img]
+
+Info: >compiling<
+[img]http://i.imgur.com/LqNtWJS.png[/img]
+. . .
+[img]http://i.imgur.com/0x1HCf0.png[/img]
+
+Info: >"BUILD COMPLETE" if the compiler will not encounter any problems<
+[img]http://i.imgur.com/wbmJFwf.png[/img]
+
+Info: >the installation summary<
+[img]http://i.imgur.com/A15xTEP.png[/img]
+
+after an unattended "installation" is worth to review the log file, especially when compilation failed
+[img]http://i.imgur.com/ra0CGXe.png[/img]
+
+run the script (location is specified in the summary of the installation)
+[img]http://i.imgur.com/uzVQv8m.png[/img]
+
+Info: >these are the informations from the console window<
+[img]http://i.imgur.com/ZCun4zk.png[/img]
+[/spoiler]
+
+enjoy  :)
+[img]http://i.imgur.com/sU2Xjsm.png[/img] 
