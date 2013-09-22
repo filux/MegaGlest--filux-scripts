@@ -110,7 +110,7 @@ Exec=/bin/bash ./megaglest-svn.sh -nc\nCategories=Game;StrategyGame;" > "$FILE";
   cd "$pwd1"; fun_0 er1; if [ "$rebuildex" -eq "1" ] && [ -d "$builddir" ]; then rm -r "$builddir"; fun_0 er1; fi
   if [ -f "$fullrebfile" ]; then read rebrecord < "$fullrebfile"; sleep 0.05s; nrebrecord=`expr "$rebrecord" : '\([0-9]*[0-9]\)'`; else nrebrecord=0; rebrecord="$nrebrecord regular builds ago"; echo "$rebrecord" > "$fullrebfile"; fun_0 er2; fi
   echo -e "\n >>> script checking now:\n"; echo -n " Is the MegaGlest svn game up to date?"
-  rezult=`timeout 1m svn status -qu` && conect=1 
+  rezult=`timeout 2m svn status -qu` && conect=1 
   if [ "$conect" -ne "1" ]; then clear; sleep "$x1"s 
     echo -e "\n Oops... Some problem with the connection to server detected.\n\n When launching the game without checking the updates\n is recommended to play only in a single player mode.\n"; sleep 1s; sleep "$x2"s
     if [ ! -d "$builddir" ]; then 

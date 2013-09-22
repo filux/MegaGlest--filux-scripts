@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# v.0.8 RC
+# v.0.81 RC
 #
 # Use this script to carry out the fast and fun downloading process the all official MegaGlest mods available in game mods' centre.
 # ----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ fun_err() { if [ "$?" -ne "0" ]; then echo -e "\n >>> an error was detected <<< 
   case $1 in
     er1) echo -e "\n > It looks like that the problem is related to the functioning of the external script or application. <\n\n press enter key to continue/exit...\n"; sleep 1s; read -t30; exit 1;;
     er2) echo -e "\n > It looks like you have missing write permissions. <\n\n press enter key to continue/exit...\n"; sleep 1s; read -t30; exit 2;;
-    er3) echo -e "\n > It looks like some problem with network connection. <\nfun_err er3\n press enter key to continue/exit...\n"; sleep 1s; read -t30; exit 3;;
+    er3) echo -e "\n > It looks like some problem with network connection. <\n\n press enter key to continue/exit...\n"; sleep 1s; read -t30; exit 3;;
       *) ;;
   esac; fi }
 te_fs=`$adpx"Techs"$adsx 2>/dev/null`; fun_err er3; ti_fs=`$adpx"Tilesets"$adsx 2>/dev/null`; fun_err er3; sc_fs=`$adpx"Scenarios"$adsx 2>/dev/null`; fun_err er3; ma_fs=`$adpx"Maps"$adsx 2>/dev/null`; fun_err er3
