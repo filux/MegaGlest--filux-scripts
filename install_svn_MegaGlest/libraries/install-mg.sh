@@ -42,6 +42,7 @@ if [ ! -d "$pwd2" ]; then mkdir "$pwd2"; fun_err er2; fi
 cd "$pwd2"; fun_err er4
 echo -e "\n\n$pwd2>$svnc\n"
 
+
 if [ -x "$ZENITY" ] || [ -x "$KDIALOG" ]; then (
 	if [ ! -x "$ZENITY" ] && [ -x "$KDIALOG" ]; then dbusRef=`kdialog --progressbar "Downloading in progress..." --geometry 460x50+0+50 100`; fi
 

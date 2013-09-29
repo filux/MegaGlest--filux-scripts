@@ -317,6 +317,7 @@ case $distribution in
 		esac
 		;;
 
+		
 #	Chakra|chakra) (& prob. Arch) doesn't like MegaGlest because just hate GTK > wxGTK, wxWidgets
 
 #	V distributions that may be worth do test and maybe taking into consideration (future release) in ~mid-2014+ V

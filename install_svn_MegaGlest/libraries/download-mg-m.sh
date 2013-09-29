@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 # v.0.8.5 RC
-#
 # Use this script to carry out fast and fun downloading process of all official MegaGlest mods available in game mods' centre.
 # Run it from any localization and then look for downloaded files in default localization ~/.megaglest/...
 # ----------------------------------------------------------------------------
