@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# v.0.8 RC
+# v.0.8.5 RC
 # Use this script to carry out the whole "installation" process of svn MegaGlest game on a number of Linux platforms.
 #
 # By design, this script should be run only once.
@@ -16,10 +16,7 @@
 # Copyright (c) 2013 filux under GNU GPL v3.0
 LANG=C
 
-if [ `id -u`'x' = '0x' ]; then 
-	echo " This script can't be run as root; the root's password will be required per moment after starting."
-	exit 9
-fi
+if [ `id -u`'x' = '0x' ]; then echo " This script can't be run as root; the root's password will be required per moment after starting."; exit 9; fi
 pwd0="$(pwd)""/"; pwd1="$pwd0""libraries/"; ilog="$pwd0""install.log"
 
 fun_err() { 
