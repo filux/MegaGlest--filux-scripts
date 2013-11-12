@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------------
 # Before first run: make the script executable ("chmod +x download-mg-m.sh").
 # Run the script in console using this command: "./download-mg-m.sh".
-# For headless server purposes (without scenarios) use command: "./download-mg-m.sh --headless".
+# For headless server purposes use command: "./download-mg-m.sh --headless".
 # ----------------------------------------------------------------------------
 # Written by filux <heross(@@)o2.pl>
 # Copyright (c) 2013 filux under GNU GPL v3.0
@@ -16,8 +16,9 @@ echo -e "\n\n\n"; clear; echo " "
 if [ `id -u`'x' = '0x' ]; then echo " This script can't be run as root."; read -t5; exit 9; fi
 path=~/.megaglest/; dsx=".7z"; adpx="curl http://master.megaglest.org/show"; adsx="ForGlest.php"; errcount=0; skipunpack=0
 
-if [ "$1" == "--headless" ]; then noscenarios='true';
-			else noscenarios='false'; fi
+if [ "$1" == "--headless" ] || [ "$2" == "--headless" ]; then 
+	noscenarios='true';
+	else noscenarios='false'; fi
 
 fun_err() {
 	if [ "$?" -ne "0" ]; then echo -e "\n >>> an error was detected <<< "

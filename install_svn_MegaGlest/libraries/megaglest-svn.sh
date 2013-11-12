@@ -2,7 +2,7 @@
 #
 # Script performs the function of updating, compiling and running the latest svn revision of the MegaGlest game in linux OS.
 #
-# filux's script v.0.8 RC, written and working perfectly in opensuse x64 v.12.2 with KDE
+# filux's script v.0.8.5 RC, written and working perfectly in opensuse x64 v.12.2 with KDE
 # Thanks for beta testing and given ideas to: Jammyjamjamman, titi|son, tomreyn.
 # ----------------------------------------------------------------------------
 # Written by filux <heross(@@)o2.pl>
@@ -28,9 +28,9 @@ if [ `id -u`'x' = '0x' ]; then echo -e "\n This script can't be run as root;\n t
 count=0; helpex=0; noconex=0; fastex=0; freshex=0; rebuildex=0; libcheckex=0; ulimitcex=0; verboseex=0; runheadlessex=0; conect=0; conect2=0
 vparam="--verbose"; hparam="--headless-server-mode=exit,vps"; FILE=$'megaglest-svn.desktop'; dir="mk"; builddir="build"; libso="lib"; libso2="lib_bkp"
 pwd1="$(pwd)""/"; pwd3="$pwd1""mk/linux/"; pathtolog="$pwd1""logs/"; logfile="$pathtolog""lastsvngame.log"; logfilev="$pathtolog""lastvsvngame.log.gz"
-logfileh="$pathtolog""lasthsvngame.log"; logfilevd="$logfilev""_date.txt"; logcoredate="$pathtolog""core_date.txt"; fullrebfile="$pathtolog""last_full_rebuild.mem"
-x1=0.004; x2=0.02; x3=0.04; x4=0.08; exc="Mdata/glest_game/data/defaultNetworkGameSetup.mgg"; exc2="Mbuild-mg.sh"; exc3="Mmk/linux/setupBuildDeps.sh"
-line="-----------------------------------"
+logfileh="$pathtolog""lasthsvngame.log"; logfilevd="$logfilev""_date.txt"; logcoredate="$pathtolog""core_date.txt"; logcoreout="$pathtolog""core_gdb_out.log"
+fullrebfile="$pathtolog""last_full_rebuild.mem"; svnlog="$pathtolog""lastsvncommits.log"; x1=0.004; x2=0.02; x3=0.04; x4=0.08; exc="Mdata/glest_game/data/defaultNetworkGameSetup.mgg"
+exc2="Mbuild-mg.sh"; exc3="Mmk/linux/setupBuildDeps.sh"; line="-----------------------------------"; ParamsGraphicCard="./"
 
 while [ "$count" -lt "$#" ]; do count=`expr $count + 1`
 	case ${@:$count:1} in
@@ -43,13 +43,25 @@ if [ "$fastex" -ne "1" ]; then x1=0.4; x2=2; x3=4; x4=8; fi
 
 fun_0() {
 	if [ "$?" -ne "0" ]; then echo -e "\n >>> an error was detected <<< "
-	
-	case $1 in
-		er1) echo -e "> Are you sure that you placed the script in the right directory? <\n> ...and MegaGlest svn game directories and files exist? <\n"; sleep "$x4"s; exit 1;;
-		er2) echo -e "> It looks like that the script directory has missing write permissions. <\n"; sleep "$x4"s; exit 2;;
-		er3) echo -e "> It looks like that the problem is related to the functioning of the external script or application. <\n"; sleep "$x4"s; exit 3;;
-		*) ;;
-	esac; fi
+		if [ "$ulimitcex" -eq "1" ]; then (
+			cd "$pwd3"; sleep 60s
+				
+			if [ -e "core" ]; then
+				echo -e "Last time when game has crashed and was produced Core File Dump was:\n`date`\n" > "$logcoredate"
+				sleep 0.25s
+				
+				if [ `which gdb`'x' != 'x' ]; then
+					gdb -q -n -ex "bt" -batch ./megaglest ./core > "$logcoreout" 2>&1
+				fi
+			fi ) &
+		fi
+		case $1 in
+			er1) echo -e "> Are you sure that you placed the script in the right directory? <\n> ...and MegaGlest svn game directories and files exist? <\n"; sleep "$x4"s; exit 1;;
+			er2) echo -e "> It looks like that the script directory has missing write permissions. <\n"; sleep "$x4"s; exit 2;;
+			er3) echo -e "> It looks like that the problem is related to the functioning of the external script or application. <\n"; sleep "$x4"s; exit 3;;
+			*) ;;
+		esac
+	fi
 }
 
 fun_1() {
@@ -71,15 +83,13 @@ fun_1() {
 			ulimit -c unlimited; fun_0 er3
 			rm -f core*; fun_0 er2
 			echo -e "> Core File Dump is enabled:.../> ulimit -c unlimited  &&  rm -f core"
-			echo -e "Last time when game has been launched with enabled Core File Dump was:\n`date`
-			(if the Core file doesn't exist [.../mk/linux/] it means that it wasn't then created)\n\n" > "$logcoredate"; fun_0 er2
 		fi
 		
 		if [ "$verboseex" -eq "1" ]; then
 			echo -e "\n "$pwd3"> ./megaglest $vparam\n\n"
 			sleep "$x2"s
 			date > "$logfilevd"; fun_0 er2
-			./megaglest "$vparam" |& tee /dev/stderr | gzip -f > "$logfilev"; fun_0 er3
+			"$ParamsGraphicCard"megaglest "$vparam" |& tee /dev/stderr | gzip -f > "$logfilev"; fun_0 er3
 		elif [ "$runheadlessex" -eq "1" ]; then
 			echo -e "\n "$pwd3"> ./megaglest $hparam\n"
 			sleep "$x3"s; clear; sleep "$x1"s
@@ -103,9 +113,9 @@ fun_1() {
 			sleep 1s
 			
 			if [ "$ulimitcex" -ne "1" ]; then
-				nohup ./megaglest >> "$logfile" 2>&1 0>/dev/null &
+				nohup "$ParamsGraphicCard"megaglest >> "$logfile" 2>&1 0>/dev/null &
 			else
-				./megaglest |& tee -a "$logfile"; fun_0 er3
+				"$ParamsGraphicCard"megaglest |& tee -a "$logfile"; fun_0 er3
 			fi
 		fi
 		
@@ -160,6 +170,7 @@ fun_3() {
 	
 	if [ "$conect2" -eq "1" ]; then 
 		echo -e "\n >>> svn update >>> done <<<\n"
+		svn log --limit 50 > "$svnlog"; fun_0 er2
 	else 
 		echo -e "\n >>> svn update >>> have failed <<<\n\n When launching the game without checking the updates\n is recommended to play only in a single player mode.\n"
 		sleep 1s
@@ -198,7 +209,7 @@ else
 		cd "$pwd3"; fun_0 er1
 		
 		if [ ! -d "$libso" ]; then mkdir "$libso"; fun_0 er2; fi
-		if [ ! -d "$libso2" ]; then mkdir "$libso2"; fun_0 er2; fi
+		#if [ ! -d "$libso2" ]; then mkdir "$libso2"; fun_0 er2; fi
 		
 		sleep "$x1"s
 		echo -e "\n Script launched verification of the libraries needed to compile the game.\n"
@@ -232,6 +243,8 @@ else
 		nrebrecord=0; rebrecord="$nrebrecord regular builds ago"
 		echo "$rebrecord" > "$fullrebfile"; fun_0 er2
 	fi
+	
+	if [ "$nrebrecord" -ge "100" ] && [ -d "$builddir" ]; then rm -r "$builddir"; fun_0 er1; fi
 	
 	echo -e "\n >>> script checking now:\n"
 	echo -n " Is the MegaGlest svn game up to date?"

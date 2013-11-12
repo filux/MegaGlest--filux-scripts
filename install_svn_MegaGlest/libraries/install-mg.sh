@@ -13,10 +13,10 @@ echo -e "\n\n\n"; clear; echo " "
 if [ `id -u`'x' = '0x' ]; then echo " This script can't be run as root; the root's password will be required per moment after starting."; exit 9; fi
 
 pwd0="$(pwd)""/"; script="megaglest-svn.sh"; scrfile="$pwd0""$script"; cd ~; pwd1="$(pwd)""/"; dir="mglestsvn"
-pwd2="$pwd1""$dir""/"; scrfile2="$pwd2""$script"; svnc="svn co https://megaglest.svn.sourceforge.net/svnroot/megaglest/trunk ."
+pwd2="$pwd1""$dir""/"; scrfile2="$pwd2""$script"; svnc="svn co https://svn.code.sf.net/p/megaglest/code/trunk ."
 line="--------------------------------------"; cnetg="defaultNetworkGameSetup.mgg"; opcnetg="$pwd0""$cnetg"
 pcnetg="$pwd2""data/glest_game/data/"; builddeps="setupBuildDeps.sh"; builddepsCL="./setupBuildDeps.sh --finstall"
-count=0; ssize=1150; installbuilddepsCL="$pwd0$builddepsCL"
+count=0; ssize=1139; installbuilddepsCL="$pwd0$builddepsCL"
 KDIALOG=$(which kdialog 2>/dev/null) || KDIALOG=''; ZENITY=$(which zenity 2>/dev/null) || ZENITY=''
 
 fun_err() {
@@ -31,12 +31,14 @@ if [ "$?" -ne "0" ]; then echo -e "\n >>> an error was detected <<< "
 fi
 }
 
-cd "$pwd0"; fun_err er4
-chmod +x "$pwd0""$builddeps"; fun_err er2
+if [ -e "$pwd0$builddeps" ]; then
+	cd "$pwd0"; fun_err er4
+	chmod +x "$pwd0""$builddeps"; fun_err er2
 
-echo -e " Please enter the root's password.\n"; sleep 0.3s
-echo -n " "; echo -e "$pwd0>$builddepsCL\n"; echo -n " "; sleep 0.3s
-su -c "$installbuilddepsCL"; fun_err er1
+	echo -e " Please enter the root's password.\n"; sleep 0.3s
+	echo -n " "; echo -e "$pwd0>$builddepsCL\n"; echo -n " "; sleep 0.3s
+	su -c "$installbuilddepsCL"; fun_err er1
+fi
 
 if [ ! -d "$pwd2" ]; then mkdir "$pwd2"; fun_err er2; fi
 cd "$pwd2"; fun_err er4
@@ -47,7 +49,7 @@ if [ -x "$ZENITY" ] || [ -x "$KDIALOG" ]; then (
 	if [ ! -x "$ZENITY" ] && [ -x "$KDIALOG" ]; then dbusRef=`kdialog --progressbar "Downloading in progress..." --geometry 460x50+0+50 100`; fi
 
 	(while [ "$count" -lt "101" ]; do 
-		sleep 30s
+		sleep 15s
 		du_s=`du -sm "$pwd2"`
 		
 		asize=`expr "$du_s" : '\([0-9]*[0-9]\)'`
@@ -59,7 +61,7 @@ if [ -x "$ZENITY" ] || [ -x "$KDIALOG" ]; then (
 		elif [ -x "$KDIALOG" ]; then qdbus $dbusRef Set "" value $count; fi
 
 		if [ -f "$scrfile2" ]; then count=102; fi; 
-	done) | if [ -x "$ZENITY" ]; then zenity --progress --text="Downloading\ in\ progress..." --width=460 --auto-close; fi
+	done) | if [ -x "$ZENITY" ]; then zenity --progress --text="Downloading\ in\ progress..." --width=460 --auto-close --no-cancel 2>/dev/null; fi
 
 	if [ ! -x "$ZENITY" ] && [ -x "$KDIALOG" ]; then qdbus $dbusRef close; fi ) &
 fi

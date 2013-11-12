@@ -2,11 +2,15 @@
 #
 # v.0.8.5 RC
 # Use this script to carry out the whole "installation" process of svn MegaGlest game on a number of Linux platforms.
+# Run it from any localization and then look for "installed" files in localization ~/mglestsvn/...
+#
+# If you want to "install" megaglest on not oficially supported distribution then you should manually install all
+# dependencies needed to compilation and remove/rename library script "/libraries/setupBuildDeps.sh"
 #
 # By design, this script should be run only once.
 # When the script asks: Do you want to install or update some libraries?, you must agree on it.
 # It's hard to predict the exact time of "installation", but it can take average about 1 hour.
-# Before starting make sure, that you have at least ~1,6 GiB free space on partition with "/home/" directory.
+# Before starting make sure, that you have at least ~1,8 GiB free space on partition with "/home/" directory.
 # ----------------------------------------------------------------------------
 # Before first run: make the script executable ("chmod +x run-installation.sh").
 # Run the script in console using this command: "./run-installation.sh".

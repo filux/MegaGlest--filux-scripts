@@ -94,6 +94,7 @@ else
 	#Codename:	 precise
 fi
 
+echo " LSB support:  $lsb"
 echo ' We have detected the following system:'
 echo " [ $distribution ] [ $release ] [ $codename ] [ $architecture ]"
 echo ''
@@ -105,14 +106,14 @@ unsupported_error_common () {
 	echo 'Please report a bug at http://bugs.megaglest.org providing the following information:'
 	echo '--- snip ---'
 	if [ "$svncheck" == "true" ]; then
-		echo 'SVN version:  '"$svnversion"
+		echo "SVN version:  $svnversion"
 	else    echo 'SVN version:  unknown'
 	fi
-	echo 'LSB support:  '"$lsb"
-	echo 'Distribution: '"$distribution"
-	echo 'Release:      '"$release"
-	echo 'Codename:     '"$codename"
-	echo 'Architecture: '"$architecture"
+	echo "LSB support:  $lsb"
+	echo "Distribution: $distribution"
+	echo "Release:      $release"
+	echo "Codename:     $codename"
+	echo "Architecture: $architecture"
 	echo '--- snip ---'
 	echo ''
 }
@@ -127,10 +128,10 @@ unsupported_distribution () {
 }
 
 unsupported_release () {
-	echo 'Unsupported '"$distribution"' release.' >&2
+	echo "Unsupported $distribution release." >&2
 	unsupported_error_common
-	if [ "$installcommand" != '' ]; then
-		echo 'For now, please try this (which works with other '"$distribution"' releases):'
+	if [ "$installcommand" != "" ]; then
+		echo "For now, please try this (which works with other $distribution releases):"
 		echo -e "$installcommand"
 		echo '...and please report back to us, how it works for you, on the forum https://forum.megaglest.org as a bug report. Thanks!'
 	fi
